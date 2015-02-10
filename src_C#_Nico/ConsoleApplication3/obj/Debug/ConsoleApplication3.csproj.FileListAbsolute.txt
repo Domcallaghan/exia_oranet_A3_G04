@@ -1,0 +1,9 @@
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe.config
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.exe
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\ConsoleApplication3.pdb
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\DbLinq.dll
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\DbLinq.Oracle.dll
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Oracle.DataAccess.dll
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.csprojResolveAssemblyReference.cache
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.exe
+c:\users\nicolas\documents\visual studio 2012\Projects\ConsoleApplication3\ConsoleApplication3\obj\Debug\ConsoleApplication3.pdb
