@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace exia_oranet_A3_G04.Properties
+namespace Projet_Csharp.Properties
 {
 
 

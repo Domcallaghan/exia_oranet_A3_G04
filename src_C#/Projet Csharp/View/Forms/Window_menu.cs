@@ -8,19 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace exia_oranet_A3_G04
+namespace Projet_Csharp.View.Forms
 {
-    public partial class Window_customer : Form
+    public partial class Window_menu : Form
     {
-        public Window_customer()
+        public Window_menu()
         {
             InitializeComponent();
         }
-
-        private void customer_Window_Load(object sender, EventArgs e)
-        {
-
-        }
-
     }
 }

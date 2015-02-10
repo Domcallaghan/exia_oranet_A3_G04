@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace exia_oranet_A3_G04.View.Forms
+namespace Projet_Csharp
 {
-    public partial class Window_subcribe : Form
+    public partial class Window_customer : Form
     {
-        public Window_subcribe()
+        public Window_customer()
         {
             InitializeComponent();
         }

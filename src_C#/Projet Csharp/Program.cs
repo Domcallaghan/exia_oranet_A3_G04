@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace exia_oranet_A3_G04
+namespace Projet_Csharp
 {
     static class Program
     {
