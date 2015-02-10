@@ -9,6 +9,8 @@
 
     -- L'utilisateur principale Pharmaweb
 
-CREATE USER Pharmaweb IDENTIFIED BY Admin1337 DEFAULT TABLESPACE PHARMAWEB TEMPORARY TABLESPACE TEMP;
+CREATE USER Pharmaweb
+     IDENTIFIED BY Admin1337
+     DEFAULT TABLESPACE PHARMAWEB TEMPORARY TABLESPACE TEMP;
     -- ajout de role de connexion et de modification
 GRANT CONNECT, RESOURCE TO Pharmaweb;
