@@ -64,6 +64,7 @@
             this.Dgv_medicine.Name = "Dgv_medicine";
             this.Dgv_medicine.Size = new System.Drawing.Size(325, 315);
             this.Dgv_medicine.TabIndex = 1;
+            this.Dgv_medicine.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.Dgv_medicine_CellContentClick);
             // 
             // Tb_basket
             // 
@@ -123,6 +124,7 @@
             this.Lb_customer_name.Size = new System.Drawing.Size(68, 13);
             this.Lb_customer_name.TabIndex = 7;
             this.Lb_customer_name.Text = "Prenom Nom";
+            this.Lb_customer_name.Click += new System.EventHandler(this.Lb_customer_name_Click);
             // 
             // Btn_config
             // 
