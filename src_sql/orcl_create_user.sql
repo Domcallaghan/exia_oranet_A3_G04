@@ -49,6 +49,37 @@ CREATE PROFILE prf_PharmaTeam
     ---------------------------------------------------
 
     ---------------------------------------------------
+    --                FOURNISSEURS                   --
+    ---------------------------------------------------
+
+    -- profil pour les fournisseurs
+CREATE PROFILE prf_Fournisseur
+     LIMIT
+         SESSIONS_PER_USER 1
+         IDLE_TIME 60
+         FAILED_LOGIN_ATTEMPTS 3
+         PASSWORD_LIFE_TIME UNLIMITED
+         ;
+
+    -- role pour les fournisseurs
+    -- @todo gestion des "je vois que moi"
+CREATE ROLE rle_Supplier;
+GRANT
+     SELECT ON Pharmaweb.medicament,
+
+     SELECT ON Pharmaweb.classe_pharmaceutique,
+
+     SELECT ON Pharmaweb.incompatibiliter,
+
+     SELECT ON Pharmaweb.fournir,
+     UPDATE ON Pharmaweb.fournir,
+
+     SELECT ON Pharmaweb.fournisseur
+
+     TO rle_Supplier;
+    ---------------------------------------------------
+
+    ---------------------------------------------------
     --                 UTILISATEURS                  --
     ---------------------------------------------------
 
@@ -61,3 +92,48 @@ CREATE PROFILE prf_User
          PASSWORD_LIFE_TIME UNLIMITED
          ;
          -- @todo : on fait quoi pour les exlude?
+
+    -- role pour les utilisateurs
+CREATE ROLE rle_User;
+GRANT
+     SELECT ON Pharmaweb.medicament,
+
+     SELECT ON Pharmaweb.medecin,
+     INSERT ON Pharmaweb.medecin,
+
+     SELECT ON Pharmaweb.commande,
+     INSERT ON Pharmaweb.commande,
+     UPDATE ON Pharmaweb.commande,
+
+     SELECT ON Pharmaweb.allergie,
+     INSERT ON Pharmaweb.allergie,
+
+     SELECT ON Pharmaweb.patient,
+     INSERT ON Pharmaweb.patient,
+     UPDATE ON Pharmaweb.patient,
+
+     SELECT ON Pharmaweb.etat,
+
+     SELECT ON Pharmaweb.centre_de_gestion,
+     INSERT ON Pharmaweb.centre_de_gestion,
+
+     SELECT ON Pharmaweb.ordonnance,
+     INSERT ON Pharmaweb.ordonnance,
+     UPDATE ON Pharmaweb.ordonnance,
+
+     SELECT ON Pharmaweb.mutuel,
+     INSERT ON Pharmaweb.mutuel,
+
+     SELECT ON Pharmaweb.classe_pharmaceutique,
+
+     SELECT ON Pharmaweb.ligne_commande,
+     INSERT ON Pharmaweb.ligne_commande,
+     UPDATE ON Pharmaweb.ligne_commande,
+
+     SELECT ON Pharmaweb.incompatibiliter,
+
+     SELECT ON Pharmaweb.posseder,
+     INSERT ON Pharmaweb.posseder,
+     UPDATE ON Pharmaweb.posseder
+
+     TO rle_User;
