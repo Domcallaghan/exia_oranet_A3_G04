@@ -46,6 +46,38 @@ CREATE PROFILE prf_PharmaTeam
          ;
          -- @todo : on fait quoi pour les exlude?
 
+    -- role pour les Preparateur
+CREATE ROLE rle_Preparateur;
+GRANT
+     SELECT ON Pharmaweb.medicament,
+
+     SELECT ON Pharmaweb.classe_pharmaceutique,
+
+     SELECT ON Pharmaweb.incompatibiliter,
+
+     SELECT ON Pharmaweb.fournir,
+     UPDATE ON Pharmaweb.fournir,
+
+     SELECT ON Pharmaweb.fournisseur
+
+     TO rle_Preparateur;
+
+    -- role pour les Pharmacien
+CREATE ROLE rle_Pharmacien;
+GRANT
+     SELECT ON Pharmaweb.medicament,
+
+     SELECT ON Pharmaweb.classe_pharmaceutique,
+
+     SELECT ON Pharmaweb.incompatibiliter,
+
+     SELECT ON Pharmaweb.fournir,
+     UPDATE ON Pharmaweb.fournir,
+
+     SELECT ON Pharmaweb.fournisseur
+
+     TO rle_Pharmacien;
+
     ---------------------------------------------------
 
     ---------------------------------------------------
@@ -64,19 +96,22 @@ CREATE PROFILE prf_Fournisseur
     -- role pour les fournisseurs
     -- @todo gestion des "je vois que moi"
 CREATE ROLE rle_Supplier;
-GRANT
-     SELECT ON Pharmaweb.medicament,
+    -- ajout des droits au role
+GRANT SELECT ON Pharmaweb.medicament TO rle_Supplier;
+GRANT SELECT ON Pharmaweb.classe_pharmaceutique TO rle_Supplier;
+GRANT SELECT ON Pharmaweb.incompatibiliter TO rle_Supplier;
+GRANT SELECT, UPDATE ON Pharmaweb.fournir TO rle_Supplier;
+GRANT SELECT ON Pharmaweb.fournisseur TO rle_Supplier;
 
-     SELECT ON Pharmaweb.classe_pharmaceutique,
+    -- creation d'un fournisseur A de test
+CREATE USER FournisseurA
+     IDENTIFIED BY Admin1337
+     DEFAULT TABLESPACE PHARMAWEB
+     TEMPORARY TABLESPACE TEMP
+     PROFILE prf_Fournisseur;
 
-     SELECT ON Pharmaweb.incompatibiliter,
-
-     SELECT ON Pharmaweb.fournir,
-     UPDATE ON Pharmaweb.fournir,
-
-     SELECT ON Pharmaweb.fournisseur
-
-     TO rle_Supplier;
+    -- ajout de role de connexion et de son role de supplier
+GRANT CONNECT, rle_Supplier TO FournisseurA;
     ---------------------------------------------------
 
     ---------------------------------------------------
