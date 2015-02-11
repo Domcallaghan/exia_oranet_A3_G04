@@ -14,6 +14,10 @@ ALTER SYSTEM SET resource_limit=TRUE;
     --                  PHARMAWEB                    --
     ---------------------------------------------------
 
+    -- on drop les existants
+DROP USER Pharmaweb;
+DROP PROFILE prf_Pharmaweb;
+
     -- profil avec les param de connexion
 CREATE PROFILE prf_Pharmaweb
      LIMIT
@@ -85,6 +89,11 @@ GRANT
     --                FOURNISSEURS                   --
     ---------------------------------------------------
 
+    -- on drop les existants
+DROP USER FournisseurA;
+DROP PROFILE prf_Fournisseur;
+DROP ROLE rle_Supplier;
+
     -- profil pour les fournisseurs
 CREATE PROFILE prf_Fournisseur
      LIMIT
@@ -129,6 +138,11 @@ GRANT CONNECT, rle_Supplier
     ---------------------------------------------------
     --                 UTILISATEURS                  --
     ---------------------------------------------------
+
+    -- on drop les existants
+DROP USER ClientA;
+DROP PROFILE prf_User;
+DROP ROLE rle_User;
 
     -- profil pour les utilisateurs
 CREATE PROFILE prf_User
