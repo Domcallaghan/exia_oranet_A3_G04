@@ -23,6 +23,11 @@ Insert into ALLERGENE values(1,'Poil de chat');
 Insert into ALLERGENE values(1,'Arachide');
 Insert into ALLERGENE values(1,'Acarien');
 
+insert into ALLERGIQUE values(1,4);
+insert into ALLERGIQUE values(1,3);
+insert into ALLERGIQUE values(2,4);
+insert into ALLERGIQUE values(3,1);
+
 Insert into Etat values(1,'En attente');
 Insert into Etat values(2,'Accepté');
 Insert into Etat values(2,'Refusé');
@@ -37,9 +42,12 @@ Insert into Ordonnance values (1,2,2,'https://ohfsdkwhf45','01/04/2014');
 
 Insert into Medicament values ('Paracéthamol','563541258965',1,'02/01/2014','azqdssqdzqesdzsdffeser',1,15,'biofarma');
 Insert into Medicament values ('Doliprane','155311541521',3,'02/01/2014','otipmodbshjbd',0,30,'servier');
-----------------------------------------------------------------------
-Insert into Commande values (1,1,1,125,100,256,0,0);
-Insert into Commande values (1,3,2,256,140,166,100,0);
+
+Insert into Commande values (1,1,1,125,100,25,0,0);
+Insert into Commande values (1,3,2,256,50,100,5,1);
+
+Insert into Facture values(1,1,0,50,'01/02/2015');
+Insert into Facture values(2,1,0,66,'05/09/2010');
 
 Insert into ligne_commande values ('Paracéthamol','563541258965',1,25,20);
 Insert into ligne_commande values ('Doliprane','155311541521',2,65,5);
@@ -49,3 +57,7 @@ Insert into Fournir values(2,'Paracéthamol','563541258965',200,'01/01/2014',514
 
 Insert into INCOMPATIBILITE values(2,1);
 Insert into INCOMPATIBILITE values(1,3);
+
+insert into MEDIC_SUR_ORDO values('Paracéthamol','563541258965',1);
+insert into MEDIC_SUR_ORDO values('Paracéthamol','563541258965',2);
+insert into MEDIC_SUR_ORDO values('Doliprane','155311541521',1);
