@@ -47,8 +47,8 @@ Insert into ligne_commande values ('Doliprane','155311541521',2,65,5);
 Insert into Fournir values(1,'Paracéthamol','563541258965',1000);
 Insert into Fournir values(2,'Paracéthamol','563541258965',200);
 
-Insert into Incompatibiliter values(2,1);
-Insert into Incompatibiliter values(1,3);
+Insert into INCOMPATIBILITE values(2,1);
+Insert into INCOMPATIBILITE values(1,3);
 
 Insert into RATTACHER values(1,4);
 Insert into RATTACHER values(2,2);
