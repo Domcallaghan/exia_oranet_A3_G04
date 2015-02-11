@@ -20,8 +20,8 @@ INSERT INTO Patient VALUES (1,1,1 ,'Schejkowski','Anton','01-01-1999','20 boulev
 
 Insert into allergie values(1,'Foin');
 Insert into allergie values(1,'Poil de chat');
-Insert into allergie values(1,'Alimentaire');
-Insert into allergie values(1,'acarien');
+Insert into allergie values(1,'Arachide');
+Insert into allergie values(1,'Acarien');
 
 Insert into Etat values(1,'En attente');
 Insert into Etat values(2,'Accepté');
@@ -37,7 +37,7 @@ Insert into Ordonnance values (1,2,2,'https://ohfsdkwhf45','01/04/2014');
 
 Insert into Medicament values ('Paracéthamol','563541258965',1,'02/01/2014','azqdssqdzqesdzsdffeser',1,15,'biofarma');
 Insert into Medicament values ('Doliprane','155311541521',3,'02/01/2014','otipmodbshjbd',0,30,'servier');
-
+----------------------------------------------------------------------
 Insert into Commande values (1,1,1,1256,1000,256,0);
 Insert into Commande values (1,3,2,2566,1400,166,1000);
 
