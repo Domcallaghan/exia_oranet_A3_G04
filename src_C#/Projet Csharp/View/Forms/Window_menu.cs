@@ -16,5 +16,19 @@ namespace Projet_Csharp.View.Forms
         {
             InitializeComponent();
         }
+        /*
+         * Evenement clic bouton Connection
+         */
+        private void Btn_connexion_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic label S'incrire
+         */
+        private void Lb_inscription_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

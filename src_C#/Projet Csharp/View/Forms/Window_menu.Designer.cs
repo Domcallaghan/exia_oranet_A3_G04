@@ -31,7 +31,7 @@
             this.Bmp_logo = new System.Windows.Forms.Label();
             this.Tb_login = new System.Windows.Forms.TextBox();
             this.Tb_password = new System.Windows.Forms.TextBox();
-            this.Lb_inscription = new System.Windows.Forms.Label();
+            this.Lb_subscribe = new System.Windows.Forms.Label();
             this.Btn_connexion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -48,6 +48,7 @@
             // Tb_login
             // 
             this.Tb_login.Location = new System.Drawing.Point(81, 101);
+            this.Tb_login.MaxLength = 25;
             this.Tb_login.Name = "Tb_login";
             this.Tb_login.Size = new System.Drawing.Size(233, 20);
             this.Tb_login.TabIndex = 1;
@@ -56,20 +57,22 @@
             // Tb_password
             // 
             this.Tb_password.Location = new System.Drawing.Point(81, 145);
+            this.Tb_password.MaxLength = 25;
             this.Tb_password.Name = "Tb_password";
             this.Tb_password.Size = new System.Drawing.Size(233, 20);
             this.Tb_password.TabIndex = 2;
             this.Tb_password.Text = "Password";
             this.Tb_password.UseSystemPasswordChar = true;
             // 
-            // Lb_inscription
+            // Lb_subscribe
             // 
-            this.Lb_inscription.AutoSize = true;
-            this.Lb_inscription.Location = new System.Drawing.Point(87, 188);
-            this.Lb_inscription.Name = "Lb_inscription";
-            this.Lb_inscription.Size = new System.Drawing.Size(49, 13);
-            this.Lb_inscription.TabIndex = 3;
-            this.Lb_inscription.Text = "S\'inscrire";
+            this.Lb_subscribe.AutoSize = true;
+            this.Lb_subscribe.Location = new System.Drawing.Point(87, 188);
+            this.Lb_subscribe.Name = "Lb_subscribe";
+            this.Lb_subscribe.Size = new System.Drawing.Size(49, 13);
+            this.Lb_subscribe.TabIndex = 3;
+            this.Lb_subscribe.Text = "S\'inscrire";
+            this.Lb_subscribe.Click += new System.EventHandler(this.Lb_inscription_Click);
             // 
             // Btn_connexion
             // 
@@ -79,6 +82,7 @@
             this.Btn_connexion.TabIndex = 4;
             this.Btn_connexion.Text = "Se connecter";
             this.Btn_connexion.UseVisualStyleBackColor = true;
+            this.Btn_connexion.Click += new System.EventHandler(this.Btn_connexion_Click);
             // 
             // Window_menu
             // 
@@ -86,7 +90,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 261);
             this.Controls.Add(this.Btn_connexion);
-            this.Controls.Add(this.Lb_inscription);
+            this.Controls.Add(this.Lb_subscribe);
             this.Controls.Add(this.Tb_password);
             this.Controls.Add(this.Tb_login);
             this.Controls.Add(this.Bmp_logo);
@@ -102,7 +106,7 @@
         private System.Windows.Forms.Label Bmp_logo;
         private System.Windows.Forms.TextBox Tb_login;
         private System.Windows.Forms.TextBox Tb_password;
-        private System.Windows.Forms.Label Lb_inscription;
+        private System.Windows.Forms.Label Lb_subscribe;
         private System.Windows.Forms.Button Btn_connexion;
     }
 }

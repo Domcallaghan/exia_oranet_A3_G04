@@ -33,8 +33,8 @@
             this.Tb_basket = new System.Windows.Forms.TextBox();
             this.Tb_description = new System.Windows.Forms.TextBox();
             this.Tb_contraindication = new System.Windows.Forms.TextBox();
-            this.Rb_parmacie = new System.Windows.Forms.RadioButton();
-            this.Rb_paraparmacie = new System.Windows.Forms.RadioButton();
+            this.Rb_parmacy = new System.Windows.Forms.RadioButton();
+            this.Rb_paraparmacy = new System.Windows.Forms.RadioButton();
             this.Lb_customer_name = new System.Windows.Forms.Label();
             this.Btn_config = new System.Windows.Forms.Button();
             this.Btn_add = new System.Windows.Forms.Button();
@@ -42,6 +42,9 @@
             this.Tb_number = new System.Windows.Forms.TextBox();
             this.Lb_show_notice = new System.Windows.Forms.Label();
             this.Tb_total_price = new System.Windows.Forms.TextBox();
+            this.Btn_order = new System.Windows.Forms.Button();
+            this.Btn_logout = new System.Windows.Forms.Button();
+            this.Btn_contact = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_category)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dgv_medicine)).BeginInit();
             this.SuspendLayout();
@@ -89,32 +92,33 @@
             this.Tb_contraindication.Size = new System.Drawing.Size(180, 89);
             this.Tb_contraindication.TabIndex = 4;
             // 
-            // Rb_parmacie
+            // Rb_parmacy
             // 
-            this.Rb_parmacie.AutoSize = true;
-            this.Rb_parmacie.Location = new System.Drawing.Point(138, 81);
-            this.Rb_parmacie.Name = "Rb_parmacie";
-            this.Rb_parmacie.Size = new System.Drawing.Size(75, 17);
-            this.Rb_parmacie.TabIndex = 5;
-            this.Rb_parmacie.TabStop = true;
-            this.Rb_parmacie.Text = "Pharmacie";
-            this.Rb_parmacie.UseVisualStyleBackColor = true;
+            this.Rb_parmacy.AutoSize = true;
+            this.Rb_parmacy.Checked = true;
+            this.Rb_parmacy.Location = new System.Drawing.Point(138, 81);
+            this.Rb_parmacy.Name = "Rb_parmacy";
+            this.Rb_parmacy.Size = new System.Drawing.Size(75, 17);
+            this.Rb_parmacy.TabIndex = 5;
+            this.Rb_parmacy.TabStop = true;
+            this.Rb_parmacy.Text = "Pharmacie";
+            this.Rb_parmacy.UseVisualStyleBackColor = true;
             // 
-            // Rb_paraparmacie
+            // Rb_paraparmacy
             // 
-            this.Rb_paraparmacie.AutoSize = true;
-            this.Rb_paraparmacie.Location = new System.Drawing.Point(274, 81);
-            this.Rb_paraparmacie.Name = "Rb_paraparmacie";
-            this.Rb_paraparmacie.Size = new System.Drawing.Size(96, 17);
-            this.Rb_paraparmacie.TabIndex = 6;
-            this.Rb_paraparmacie.TabStop = true;
-            this.Rb_paraparmacie.Text = "Parapharmacie";
-            this.Rb_paraparmacie.UseVisualStyleBackColor = true;
+            this.Rb_paraparmacy.AutoSize = true;
+            this.Rb_paraparmacy.Location = new System.Drawing.Point(274, 81);
+            this.Rb_paraparmacy.Name = "Rb_paraparmacy";
+            this.Rb_paraparmacy.Size = new System.Drawing.Size(96, 17);
+            this.Rb_paraparmacy.TabIndex = 6;
+            this.Rb_paraparmacy.TabStop = true;
+            this.Rb_paraparmacy.Text = "Parapharmacie";
+            this.Rb_paraparmacy.UseVisualStyleBackColor = true;
             // 
             // Lb_customer_name
             // 
             this.Lb_customer_name.AutoSize = true;
-            this.Lb_customer_name.Location = new System.Drawing.Point(467, 33);
+            this.Lb_customer_name.Location = new System.Drawing.Point(589, 65);
             this.Lb_customer_name.Name = "Lb_customer_name";
             this.Lb_customer_name.Size = new System.Drawing.Size(68, 13);
             this.Lb_customer_name.TabIndex = 7;
@@ -122,12 +126,13 @@
             // 
             // Btn_config
             // 
-            this.Btn_config.Location = new System.Drawing.Point(541, 28);
+            this.Btn_config.Location = new System.Drawing.Point(697, 65);
             this.Btn_config.Name = "Btn_config";
             this.Btn_config.Size = new System.Drawing.Size(75, 23);
             this.Btn_config.TabIndex = 8;
             this.Btn_config.Text = "config";
             this.Btn_config.UseVisualStyleBackColor = true;
+            this.Btn_config.Click += new System.EventHandler(this.Btn_config_Click);
             // 
             // Btn_add
             // 
@@ -137,6 +142,7 @@
             this.Btn_add.TabIndex = 9;
             this.Btn_add.Text = "Ajouter";
             this.Btn_add.UseVisualStyleBackColor = true;
+            this.Btn_add.Click += new System.EventHandler(this.Btn_add_Click);
             // 
             // Btn_remove
             // 
@@ -146,6 +152,7 @@
             this.Btn_remove.TabIndex = 10;
             this.Btn_remove.Text = "Retirer";
             this.Btn_remove.UseVisualStyleBackColor = true;
+            this.Btn_remove.Click += new System.EventHandler(this.Btn_remove_Click);
             // 
             // Tb_number
             // 
@@ -165,6 +172,7 @@
             this.Lb_show_notice.Size = new System.Drawing.Size(75, 13);
             this.Lb_show_notice.TabIndex = 12;
             this.Lb_show_notice.Text = "Afficher notice";
+            this.Lb_show_notice.Click += new System.EventHandler(this.Lb_show_notice_Click);
             // 
             // Tb_total_price
             // 
@@ -174,11 +182,43 @@
             this.Tb_total_price.Size = new System.Drawing.Size(180, 20);
             this.Tb_total_price.TabIndex = 13;
             // 
+            // Btn_order
+            // 
+            this.Btn_order.Location = new System.Drawing.Point(697, 425);
+            this.Btn_order.Name = "Btn_order";
+            this.Btn_order.Size = new System.Drawing.Size(75, 23);
+            this.Btn_order.TabIndex = 14;
+            this.Btn_order.Text = "Commander";
+            this.Btn_order.UseVisualStyleBackColor = true;
+            this.Btn_order.Click += new System.EventHandler(this.Btn_order_Click);
+            // 
+            // Btn_logout
+            // 
+            this.Btn_logout.Location = new System.Drawing.Point(687, 24);
+            this.Btn_logout.Name = "Btn_logout";
+            this.Btn_logout.Size = new System.Drawing.Size(85, 23);
+            this.Btn_logout.TabIndex = 15;
+            this.Btn_logout.Text = "Déconnexion";
+            this.Btn_logout.UseVisualStyleBackColor = true;
+            this.Btn_logout.Click += new System.EventHandler(this.Btn_logout_Click);
+            // 
+            // Btn_contact
+            // 
+            this.Btn_contact.Location = new System.Drawing.Point(274, 426);
+            this.Btn_contact.Name = "Btn_contact";
+            this.Btn_contact.Size = new System.Drawing.Size(174, 23);
+            this.Btn_contact.TabIndex = 16;
+            this.Btn_contact.Text = "Contacter le pharmacien";
+            this.Btn_contact.UseVisualStyleBackColor = true;
+            // 
             // Window_customer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.Btn_contact);
+            this.Controls.Add(this.Btn_logout);
+            this.Controls.Add(this.Btn_order);
             this.Controls.Add(this.Tb_total_price);
             this.Controls.Add(this.Lb_show_notice);
             this.Controls.Add(this.Tb_number);
@@ -186,8 +226,8 @@
             this.Controls.Add(this.Btn_add);
             this.Controls.Add(this.Btn_config);
             this.Controls.Add(this.Lb_customer_name);
-            this.Controls.Add(this.Rb_paraparmacie);
-            this.Controls.Add(this.Rb_parmacie);
+            this.Controls.Add(this.Rb_paraparmacy);
+            this.Controls.Add(this.Rb_parmacy);
             this.Controls.Add(this.Tb_contraindication);
             this.Controls.Add(this.Tb_description);
             this.Controls.Add(this.Tb_basket);
@@ -209,8 +249,8 @@
         private System.Windows.Forms.TextBox Tb_basket;
         private System.Windows.Forms.TextBox Tb_description;
         private System.Windows.Forms.TextBox Tb_contraindication;
-        private System.Windows.Forms.RadioButton Rb_parmacie;
-        private System.Windows.Forms.RadioButton Rb_paraparmacie;
+        private System.Windows.Forms.RadioButton Rb_parmacy;
+        private System.Windows.Forms.RadioButton Rb_paraparmacy;
         private System.Windows.Forms.Label Lb_customer_name;
         private System.Windows.Forms.Button Btn_config;
         private System.Windows.Forms.Button Btn_add;
@@ -218,6 +258,9 @@
         private System.Windows.Forms.TextBox Tb_number;
         private System.Windows.Forms.Label Lb_show_notice;
         private System.Windows.Forms.TextBox Tb_total_price;
+        private System.Windows.Forms.Button Btn_order;
+        private System.Windows.Forms.Button Btn_logout;
+        private System.Windows.Forms.Button Btn_contact;
     }
 }
 

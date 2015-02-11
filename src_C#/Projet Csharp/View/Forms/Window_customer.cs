@@ -16,5 +16,47 @@ namespace Projet_Csharp
         {
             InitializeComponent();
         }
+        /*
+         * Evenement clic bouton Ajouter 
+         */
+        private void Btn_add_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic bouton Retirer 
+         */
+        private void Btn_remove_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic bouton Commander
+         */
+        private void Btn_order_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic label Notice
+         */
+        private void Lb_show_notice_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic bouton Config
+         */
+        private void Btn_config_Click(object sender, EventArgs e)
+        {
+
+        }
+        /*
+         * Evenement clic bouton Déconnexion
+         */
+        private void Btn_logout_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
