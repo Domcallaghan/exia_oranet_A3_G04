@@ -1,4 +1,5 @@
-	--Creation des type nécessaire pour le renvoie de la liste de médicament
+	----Creation des type nécessaire pour le renvoie de la liste de médicament-----
+	--créer un type medicament qui récupére toutes les  variable 
 create or replace TYPE MEDOC IS object (
 	nom_medoc VARCHAR2(38),
 	num_lot_medoc CHAR(12),
@@ -7,12 +8,15 @@ create or replace TYPE MEDOC IS object (
 	notice_medoc Varchar(255),
 	remboursable_medoc number(1),
 	prix_base_medoc number(5,2),
-	fabric_nom_medoc varchar2(38));
-	--créer un type medicament qui récupére toutes les  variable 
+	fabric_nom_medoc varchar2(38)
+	);	
+/
 
+	--Créer un type de tableau de Medoc
 create or replace TyPe List_Medoc is table of MEDOC;  
+/
 
----- function qui donne la liste des médicament
+	-- function qui donne la liste des médicament
 Create or replace  function F_Drug_list(    
 	categmedic in NUMBER, -- numéro categorie du médicament
 	refundable in NUMBER -- boolean 
@@ -39,9 +43,9 @@ Create or replace  function F_Drug_list(
 		return l_emp_medoc;
 	end;
 /
-select * from table(Liste_des_medoc(1,1));
+-- select * from table(F_Drug_list(1,1));
 
-	-- Procédure de création d'un client
+	-- Procédure de création d'un client --
 
 Create or replace Procedure PS_SUBMIT_CUSTOMER(
 	PAT_NUM NUMBER ,
@@ -84,7 +88,42 @@ Insert into Patient values(
 	PAT_AUTRE_INDIQUATION
 );
 end;
+/
 
------------
+		----Function qui resort la liste des catégorie de médicament (classe pharmaceutique)----
 
-CREATE or replace
+	-- créer un type Categorie de médicament qui récupére toutes les  variable 
+CREATE or replace TYPE Categ_medoc is object(
+	CPH_ID NUMBER(4),
+	CPH_NOM VARCHAR2(255),
+	CPH_POURC_REMBOURSSEMENT NUMBER(4),
+	CPH_RESUME VARCHAR2(255)
+	);
+/
+	-- créer un type de liste de Categorie de medicament
+Create or replace Type List_Categ is table of Categ_medoc;
+/
+
+	--Fontion qui retourne la liste 
+Create or replace fucntion F_Pharmaceutical_Class_List
+	return List_Categ
+	is
+		l_catg_medoc List_Categ := List_Categ();
+		n integer :=0;
+	BEGIN
+		for r in (select * from pharmaweb.CLASSE_PHARMACEUTIQUE)
+		loop
+			l_catg_medoc.extend;
+			n := n+1;
+			l_catg_medoc(n) := Categ_medoc(
+				r.CPH_ID,
+				r.CPH_NOM,
+				r.CPH_POURC_REMBOURSSEMENT,
+				r.CPH_RESUME
+				);
+		end loop;
+		return l_catg_medoc;
+	end;
+
+--  select * from table(F_Pharmaceutical_Class_List);
+
