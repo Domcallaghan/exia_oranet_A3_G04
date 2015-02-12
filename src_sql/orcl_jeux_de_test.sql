@@ -41,7 +41,11 @@ Insert into Ordonnance values (1,2,3,'https://ohfsdkwhfes','20/02/2001');
 Insert into Ordonnance values (1,2,2,'https://ohfsdkwhf45','01/04/2014');
 
 Insert into Medicament values ('Paracéthamol','563541258965',1,'02/01/2014','azqdssqdzqesdzsdffeser',1,15,'biofarma');
-Insert into Medicament values ('Doliprane','155311541521',3,'02/01/2014','otipmodbshjbd',0,30,'servier');
+Insert into Medicament values ('Doliprane','155311541521',3,'04/07/2014','otipmodbshjbd',0,14,'servier');
+Insert into Medicament values ('ABILIFY 10 mg, comprimé','156348965715',2,'02/01/2014','sqdcsefdsvszqd',1,15,'Patala');
+Insert into Medicament values ('NAPROSYNE 1000 mg, comprimé','451672526372',3,'02/01/2014','qsdsqxsqdzds',1,65,'biofarma');
+Insert into Medicament values ('BACILOR, gélule','972414987253',1,'02/01/2014','fdsfvdsefsdfs',1,32,'Patala');
+Insert into Medicament values ('LEVITRA 5 mg, comprimé pelliculé ','124355416725',3,'02/01/2014','vsdfezfsez',0,30,'servier');
 
 Insert into Commande values (1,1,1,125,100,25,0,0);
 Insert into Commande values (1,3,2,256,50,100,5,1);
@@ -51,12 +55,15 @@ Insert into Facture values(2,1,0,66,'05/09/2010');
 
 Insert into ligne_commande values ('Paracéthamol','563541258965',1,25,20);
 Insert into ligne_commande values ('Doliprane','155311541521',2,65,5);
+Insert into ligne_commande values ('ABILIFY 10 mg, comprimé','156348965715',2,25,36);
 
 Insert into Fournir values(1,'Paracéthamol','563541258965',1000,'01/01/2014',5124,0);
 Insert into Fournir values(2,'Paracéthamol','563541258965',200,'01/01/2014',514,0);
 
 Insert into INCOMPATIBILITE values(2,1);
 Insert into INCOMPATIBILITE values(1,3);
+Insert into INCOMPATIBILITE values(3,2);
+Insert into INCOMPATIBILITE values(3,1);
 
 insert into MEDIC_SUR_ORDO values('Paracéthamol','563541258965',1);
 insert into MEDIC_SUR_ORDO values('Paracéthamol','563541258965',2);

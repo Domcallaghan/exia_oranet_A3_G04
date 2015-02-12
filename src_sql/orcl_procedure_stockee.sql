@@ -1,4 +1,4 @@
-	----Creation des type nécessaire pour le renvoie de la liste de médicament-----
+		----Creation des type nécessaire pour le renvoie de la liste de médicament-----
 	--créer un type medicament qui récupére toutes les  variable 
 create or replace TYPE MEDOC IS object (
 	nom_medoc VARCHAR2(38),
@@ -45,7 +45,7 @@ Create or replace  function F_Drug_list(
 /
 -- select * from table(F_Drug_list(1,1));
 
-	-- Procédure de création d'un client --
+		----- Procédure de création d'un client -----
 
 Create or replace Procedure PS_SUBMIT_CUSTOMER(
 	PAT_NUM NUMBER ,
@@ -68,7 +68,7 @@ Create or replace Procedure PS_SUBMIT_CUSTOMER(
 )
 as
 BEGIN
-Insert into Patient values(
+Insert into pharmaweb.Patient values(
 	PAT_NUM,
 	MED_ID,
 	CDG_ID,
@@ -105,7 +105,7 @@ Create or replace Type List_Categ is table of Categ_medoc;
 /
 
 	--Fontion qui retourne la liste 
-Create or replace fucntion F_Pharmaceutical_Class_List
+Create or replace function F_Pharmaceutical_Class_List
 	return List_Categ
 	is
 		l_catg_medoc List_Categ := List_Categ();
@@ -126,4 +126,112 @@ Create or replace fucntion F_Pharmaceutical_Class_List
 	end;
 
 --  select * from table(F_Pharmaceutical_Class_List);
+
+ --Connexion
+
+ -- Insert commande 
+
+		------- liste des commande du client(id) ------
+CREATE or replace TYPE Command_customer is object(
+    COM_ID NUMBER(2)  ,
+    ETAT_ID NUMBER(4)  ,
+    PAT_NUM NUMBER(2)  ,
+    COM_MTN_TOTALE NUMBER(5,2)  ,
+    COM_MTN_PATIENT NUMBER(5,2)  ,
+    COM_MTN_SECU NUMBER(5,2)  ,
+    COM_MTN_MUTUEL NUMBER(5,2)  ,
+    COM_QUESTION NUMBER(1)  
+	);
+/
+	-- créer un type de liste de Commande de medicament
+Create or replace Type List_command_customer is table of Command_customer;
+/
+
+	-- Function qui retourne la liste des client
+Create or replace function F_Command_Customer_List
+(
+	Num_Pat in NUMBER
+)
+	return List_command_customer
+	is
+		l_command_customer List_command_customer := List_command_customer();
+		n integer :=0;
+	BEGIN
+		for r in (select * from pharmaweb.Commande where PAT_NUM = Num_Pat)
+		loop
+			l_command_customer.extend;
+			n := n+1;
+			l_command_customer(n) := Command_customer(
+				r.COM_ID,
+				r.ETAT_ID,
+				r.PAT_NUM,
+				r.COM_MTN_TOTALE,
+				r.COM_MTN_PATIENT,
+				r.COM_MTN_SECU,
+				r.COM_MTN_MUTUEL,
+				r.COM_QUESTION
+				);
+		end loop;
+		return l_command_customer;
+	end;
+	/
+ 		----- toutes les commandes -----
+Create or replace function F_All_Command_Customer_List
+	return List_command_customer
+	is
+		l_command_customer List_command_customer := List_command_customer();
+		n integer :=0;
+	BEGIN
+		for r in (select * from pharmaweb.Commande )
+		loop
+			l_command_customer.extend;
+			n := n+1;
+			l_command_customer(n) := Command_customer(
+				r.COM_ID,
+				r.ETAT_ID,
+				r.PAT_NUM,
+				r.COM_MTN_TOTALE,
+				r.COM_MTN_PATIENT,
+				r.COM_MTN_SECU,
+				r.COM_MTN_MUTUEL,
+				r.COM_QUESTION
+				);
+		end loop;
+		return l_command_customer; 
+	end;
+	/	
+ 		---- détail commande ----
+CREATE or replace TYPE Command_detail is object(
+    MED_NOM VARCHAR2(38),
+    MED_NUM_LOT CHAR(12),
+    MED_DATE_EXPIRATION DATE,
+    MED_NOTICE VARCHAR2(255),
+    MED_REMBOURSABLE NUMBER(1),
+    QTE NUMBER(4),
+    PRIX_ACTUEL NUMBER(7,2),
+    CPH_ID NUMBER(4)
+	);
+/
+
+Create or replace Function F_Command_Detail
+(
+	Num_Command in NUMBER,
+	Num_Pat in NUMBER
+	)
+	return Command_detail
+is
+	detail :=Command_detail;
+BEGIN
+	return select unique LC.MED_NOM, LC.MED_NUM_LOT, MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,QTE,PRIC_ACTUEL,CPH_ID_1 as imcompatible 
+from Ligne_COMMANDE LC
+inner join medicament M
+  on LC.MED_NOM = M.MED_NOM and LC.MED_NUM_LOT = M.MED_NUM_LOT
+inner join CLASSE_PHARMACEUTIQUE CP
+  on CP.CPH_ID = M.CPH_ID
+inner join INCOMPATIBILITE I
+  on I.CPH_ID = I.CPH_ID
+where COM_ID = 1 ;
+
+
+ -- supprimer commande 
 

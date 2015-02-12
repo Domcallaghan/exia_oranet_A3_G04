@@ -1,11 +1,3 @@
--- -----------------------------------------------------------------------------
---             GEnEration d'une base de donnEes pour
---                      Oracle Version 10g
---                        (11/2/2015 9:01:55)
--- -----------------------------------------------------------------------------
---      Date de derniere modification : 11/2/2015 9:01:45
--- -----------------------------------------------------------------------------
-
 DROP TABLE FACTURE CASCADE CONSTRAINTS;
 
 DROP TABLE MEDECIN CASCADE CONSTRAINTS;
@@ -133,10 +125,10 @@ CREATE TABLE COMMANDE
     COM_ID NUMBER(2)  NOT NULL,
     ETAT_ID NUMBER(4)  NOT NULL,
     PAT_NUM NUMBER(2)  NOT NULL,
-    COM_MTN_TOTALE NUMBER(5,2)  NOT NULL,
-    COM_MTN_PATIENT NUMBER(5,2)  NOT NULL,
-    COM_MTN_SECU NUMBER(5,2)  NULL,
-    COM_MTN_MUTUEL NUMBER(5,2)  NULL,
+    COM_MTN_TOTALE NUMBER(7,2)  NOT NULL,
+    COM_MTN_PATIENT NUMBER(7,2)  NOT NULL,
+    COM_MTN_SECU NUMBER(7,2)  NULL,
+    COM_MTN_MUTUEL NUMBER(7,2)  NULL,
     COM_QUESTION NUMBER(1)  NULL
 ,   CONSTRAINT PK_COMMANDE PRIMARY KEY (COM_ID)  USING INDEX TABLESPACE PHARMA_NDX
    ) ;
@@ -304,7 +296,7 @@ CREATE TABLE LIGNE_COMMANDE
     MED_NUM_LOT CHAR(12)  NOT NULL,
     COM_ID NUMBER(2)  NOT NULL,
     QTE NUMBER(4)  NOT NULL,
-    PRIC_ACTUEL NUMBER(5,2)  NOT NULL
+    PRIC_ACTUEL NUMBER(7,2)  NOT NULL
 ,   CONSTRAINT PK_LIGNE_COMMANDE PRIMARY KEY (MED_NOM, MED_NUM_LOT, COM_ID)  USING INDEX TABLESPACE PHARMA_NDX
    ) ;
 
@@ -533,3 +525,4 @@ ALTER TABLE MEDIC_SUR_ORDO ADD (
 -- -----------------------------------------------------------------------------
 --                FIN DE GENERATION
 -- -----------------------------------------------------------------------------
+
