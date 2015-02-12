@@ -114,7 +114,7 @@ GRANT SELECT
      ON Pharmaweb.Medic_sur_ordo
      TO rle_Preparateur;
 
-    -- creation d'un Client A de test
+    -- creation d'un Preparateur A de test
 CREATE USER PreparateurA
      IDENTIFIED BY Admin1337
      DEFAULT TABLESPACE PHARMAWEB
@@ -126,22 +126,72 @@ GRANT CONNECT, rle_Preparateur
      TO PreparateurA;
 
     ---------------------------------------------------
--- @todo
+
     -- role pour les Pharmacien
 CREATE ROLE rle_Pharmacien;
-GRANT
-     SELECT ON Pharmaweb.medicament,
-
-     SELECT ON Pharmaweb.classe_pharmaceutique,
-
-     SELECT ON Pharmaweb.Incompatibilite,
-
-     SELECT ON Pharmaweb.fournir,
-     UPDATE ON Pharmaweb.fournir,
-
-     SELECT ON Pharmaweb.fournisseur
-
+    -- ajout des droits au role
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Facture
      TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Medecin
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Medicament
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Fournisseur
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Commande
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Patient
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Ordonnance
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Centre_de_gestion
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Etat
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Allergene
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Mutuel
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Classe_pharmaceutique
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Ligne_commande
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Allergique
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Fournir
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Incompatibilite
+     TO rle_Pharmacien;
+GRANT SELECT, INSERT, UPDATE, DELETE
+     ON Pharmaweb.Medic_sur_ordo
+     TO rle_Pharmacien;
+
+    -- creation d'un Pharmacien A de test
+CREATE USER PharmacienA
+     IDENTIFIED BY Admin1337
+     DEFAULT TABLESPACE PHARMAWEB
+     TEMPORARY TABLESPACE TEMP
+     PROFILE prf_PharmaTeam;
+
+    -- ajout de role de connexion + son role de Pharmacien
+GRANT CONNECT, rle_Pharmacien
+     TO PharmacienA;
 
     ---------------------------------------------------
 
