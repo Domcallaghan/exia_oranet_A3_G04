@@ -204,34 +204,157 @@ Create or replace function F_All_Command_Customer_List
 CREATE or replace TYPE Command_detail is object(
     MED_NOM VARCHAR2(38),
     MED_NUM_LOT CHAR(12),
-    MED_DATE_EXPIRATION DATE,
-    MED_NOTICE VARCHAR2(255),
+    MED_FABRIC_NOM VARCHAR2(38),
     MED_REMBOURSABLE NUMBER(1),
     QTE NUMBER(4),
-    PRIX_ACTUEL NUMBER(7,2),
-    CPH_ID NUMBER(4)
+    PRIX_ACTUEL NUMBER(7,2)
 	);
+/
+
+CREATE or replace TYPE Command_detail_list is table of Command_detail;
 /
 
 Create or replace Function F_Command_Detail
 (
-	Num_Command in NUMBER,
-	Num_Pat in NUMBER
+	Num_Command in NUMBER
 	)
-	return Command_detail
+	return Command_detail_list
 is
-	detail :=Command_detail;
+	l_mediament_com Command_detail_list := Command_detail_list();
+	n integer :=0;
 BEGIN
-	return select unique LC.MED_NOM, LC.MED_NUM_LOT, MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,QTE,PRIC_ACTUEL,CPH_ID_1 as imcompatible 
-from Ligne_COMMANDE LC
-inner join medicament M
-  on LC.MED_NOM = M.MED_NOM and LC.MED_NUM_LOT = M.MED_NUM_LOT
-inner join CLASSE_PHARMACEUTIQUE CP
-  on CP.CPH_ID = M.CPH_ID
-inner join INCOMPATIBILITE I
-  on I.CPH_ID = I.CPH_ID
-where COM_ID = 1 ;
+	for r in (Select unique LC.MED_NOM, LC.MED_NUM_LOT,MED_FABRIC_NOM,MED_REMBOURSABLE,QTE,PRIC_ACTUEL
+				from Ligne_COMMANDE LC
+				inner join medicament M
+  					on LC.MED_NOM = M.MED_NOM and LC.MED_NUM_LOT = M.MED_NUM_LOT
+				inner join CLASSE_PHARMACEUTIQUE CP
+  					on CP.CPH_ID = M.CPH_ID
+				where COM_ID = Num_Command 
+			)
+		loop
+			l_mediament_com.extend;
+			n := n+1;
+			l_mediament_com(n) := Command_detail(
+				r.MED_NOM,
+				r.MED_NUM_LOT,
+				r.MED_DATE_EXPIRATION,
+				r.MED_FABRIC_NOM,
+				r.MED_REMBOURSABLE,
+				r.QTE,
+				r.PRIX_ACTUEL
+				);
+				end loop;
+		return l_mediament_com; 
+	end;
+	/
 
+
+
+CREATE or replace TYPE Drug_detail is object(
+    MED_NOM VARCHAR2(38),
+    MED_NUM_LOT CHAR(12),
+    MED_DATE_EXPIRATION DATE, 
+    MED_NOTICE VARCHAR2(255),  
+    MED_REMBOURSABLE NUMBER(1),
+    MED_PRIX_BASE NUMBER(5,2),
+    MED_FABRIC_NOM VARCHAR2(38),
+    CPH_NOM VARCHAR2(38)
+ );
+/
+Create or replace type list_drug_detail is table of Drug_detail;
+/
+CREATE OR REPLACE FUNCTION F_drug_details
+	(
+	 numlot char,
+	 nom VARCHAR2
+	)
+	return list_drug_detail
+	IS
+    	MED_NOM VARCHAR2(38);
+   	 	MED_NUM_LOT CHAR(12);
+    	MED_DATE_EXPIRATION DATE; 
+    	MED_NOTICE VARCHAR2(255);
+    	MED_REMBOURSABLE NUMBER(1);
+    	MED_PRIX_BASE NUMBER(7,2);
+    	MED_FABRIC_NOM VARCHAR2(38);
+    	CPH_NOM VARCHAR2(38);
+      l_detail list_drug_detail := list_drug_detail();
+      n integer:=1;
+	BEGIN
+		l_detail.extend;
+		SELECT MED_NOM, MED_NUM_LOT, med_date_expiration, med_notice, med_remboursable, med_prix_base, med_fabric_nom, 
+		cph_nom 
+		INTO MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM 
+		FROM MEDICAMENT M, CLASSE_PHARMACEUTIQUE CP 
+		WHERE M.cph_id = CP.cph_id AND MED_NOM = nom AND MED_NUM_LOT = numlot;
+    l_detail(n) := Drug_detail(MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM);
+	RETURN l_detail; 
+END;
+/
+--select * from table(F_drug_details('563541258965','Paracéthamol'))
+
+--Function pour les contre indication
+Create or replace type List_Contre_indication is table of Varchar2(200);
+
+Create or replace function F_Contre_indication
+(
+	ID_CPH in number
+	)
+return List_Contre_indication
+as
+  L_Contre_Indication List_Contre_indication := List_Contre_indication();
+  req varchar(200);
+  n integer :=0;
+	BEGIN
+     for r in (select CPH_NOM into req
+       from INCOMPATIBILITE I 
+       inner join CLASSE_PHARMACEUTIQUE CP 
+       on I.CPH_ID = CP.CPH_ID 
+       where CPH_ID_1 = ID_CPH)
+     		loop
+		       L_Contre_Indication.extend;
+		       n:=n+1;
+		       L_Contre_Indication(n) := r.CPH_NOM;
+     		end loop;
+     	return L_Contre_Indication;
+    end;
+--  select * from table( F_Contre_indication(1));
 
  -- supprimer commande 
 
+
+
+
+
+
+
+
+
+CREATE OR REPLACE FUNCTION F_drug_details
+	(
+	 numlot char,
+	 nom VARCHAR2
+	)
+	return list_drug_detail
+	IS
+    	MED_NOM VARCHAR2(38);
+   	 	MED_NUM_LOT CHAR(12);
+    	MED_DATE_EXPIRATION DATE; 
+    	MED_NOTICE VARCHAR2(255);
+    	MED_REMBOURSABLE NUMBER(1);
+    	MED_PRIX_BASE NUMBER(7,2);
+    	MED_FABRIC_NOM VARCHAR2(38);
+    	CPH_NOM VARCHAR2(38);
+      l_detail list_drug_detail := list_drug_detail();
+      n integer:=1;
+	BEGIN
+		l_detail.extend;
+		SELECT MED_NOM, MED_NUM_LOT, med_date_expiration, med_notice, med_remboursable, med_prix_base, med_fabric_nom, 
+		cph_nom 
+		INTO MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM 
+		FROM MEDICAMENT M, CLASSE_PHARMACEUTIQUE CP 
+		WHERE M.cph_id = CP.cph_id AND MED_NOM = nom AND MED_NUM_LOT = numlot;
+    l_detail(n) := Drug_detail(MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM);
+	RETURN l_detail; 
+END;
+/
