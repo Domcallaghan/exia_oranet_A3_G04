@@ -61,7 +61,10 @@ CREATE PROFILE prf_PharmaTeam
 
     -- role pour les Preparateur
 CREATE ROLE rle_Preparateur;
+
     -- ajout des droits au role
+GRANT EXECUTE ANY PROCEDURE
+     TO rle_Preparateur;
 GRANT SELECT
      ON Pharmaweb.Facture
      TO rle_Preparateur;
@@ -129,7 +132,10 @@ GRANT CONNECT, rle_Preparateur
 
     -- role pour les Pharmacien
 CREATE ROLE rle_Pharmacien;
+
     -- ajout des droits au role
+GRANT EXECUTE ANY PROCEDURE
+     TO rle_Pharmacien;
 GRANT SELECT, INSERT, UPDATE, DELETE
      ON Pharmaweb.Facture
      TO rle_Pharmacien;
@@ -216,7 +222,10 @@ CREATE PROFILE prf_Fournisseur
     -- role pour les fournisseurs
     -- @todo gestion des "je vois que moi"
 CREATE ROLE rle_Supplier;
+
     -- ajout des droits au role
+GRANT EXECUTE ANY PROCEDURE
+     TO rle_Supplier;
 GRANT SELECT
      ON Pharmaweb.medicament
      TO rle_Supplier;
@@ -269,6 +278,8 @@ CREATE PROFILE prf_User
 CREATE ROLE rle_User;
 
     -- ajout des droits au role
+GRANT EXECUTE ANY PROCEDURE
+     TO rle_User;
 GRANT SELECT
      ON Pharmaweb.Medicament
      TO rle_User;
