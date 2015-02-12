@@ -275,7 +275,7 @@ GRANT SELECT
 GRANT SELECT, INSERT
      ON Pharmaweb.Medecin
      TO rle_User;
-GRANT SELECT, INSERT, UPDATE
+GRANT SELECT, INSERT, UPDATE, DELETE
      ON Pharmaweb.Commande
      TO rle_User;
 GRANT SELECT, INSERT
@@ -302,7 +302,7 @@ GRANT SELECT
 GRANT SELECT
      ON Pharmaweb.Classe_pharmaceutique
      TO rle_User;
-GRANT SELECT, INSERT, UPDATE
+GRANT SELECT, INSERT, UPDATE, DELETE
      ON Pharmaweb.Ligne_commande
      TO rle_User;
 GRANT SELECT
