@@ -15,13 +15,14 @@ ALTER SYSTEM SET resource_limit=TRUE;
     ---------------------------------------------------
 
     -- on drop les existants
-DROP USER Pharmaweb;
+DROP USER Pharmaweb CASCADE;
 DROP PROFILE prf_Pharmaweb;
 
     -- profil avec les param de connexion
 CREATE PROFILE prf_Pharmaweb
      LIMIT
          SESSIONS_PER_USER 1
+         IDLE_TIME 5
          ;
 
     -- L'utilisateur principale Pharmaweb
@@ -40,6 +41,13 @@ GRANT CONNECT, RESOURCE TO Pharmaweb;
     --                 PHARMATEAM                    --
     ---------------------------------------------------
 
+    -- on drop les existants
+DROP USER PreparateurA CASCADE;
+DROP USER PharmacienA CASCADE;
+DROP PROFILE prf_PharmaTeam;
+DROP ROLE rle_Preparateur;
+DROP ROLE rle_Pharmacien;
+
     -- profil pour la team phara (prepa et pharma)
 CREATE PROFILE prf_PharmaTeam
      LIMIT
@@ -53,20 +61,72 @@ CREATE PROFILE prf_PharmaTeam
 
     -- role pour les Preparateur
 CREATE ROLE rle_Preparateur;
-GRANT
-     SELECT ON Pharmaweb.medicament,
-
-     SELECT ON Pharmaweb.classe_pharmaceutique,
-
-     SELECT ON Pharmaweb.Incompatibilite,
-
-     SELECT ON Pharmaweb.fournir,
-     UPDATE ON Pharmaweb.fournir,
-
-     SELECT ON Pharmaweb.fournisseur
-
+    -- ajout des droits au role
+GRANT SELECT
+     ON Pharmaweb.Facture
+     TO rle_Preparateur;
+GRANT SELECT, INSERT, UPDATE
+     ON Pharmaweb.Medecin
+     TO rle_Preparateur;
+GRANT SELECT, INSERT, UPDATE
+     ON Pharmaweb.Medicament
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Fournisseur
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Commande
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Patient
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Ordonnance
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Centre_de_gestion
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Etat
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Allergene
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Mutuel
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Classe_pharmaceutique
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Ligne_commande
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Allergique
+     TO rle_Preparateur;
+GRANT SELECT, INSERT, UPDATE
+     ON Pharmaweb.Fournir
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Incompatibilite
+     TO rle_Preparateur;
+GRANT SELECT
+     ON Pharmaweb.Medic_sur_ordo
      TO rle_Preparateur;
 
+    -- creation d'un Client A de test
+CREATE USER PreparateurA
+     IDENTIFIED BY Admin1337
+     DEFAULT TABLESPACE PHARMAWEB
+     TEMPORARY TABLESPACE TEMP
+     PROFILE prf_PharmaTeam;
+
+    -- ajout de role de connexion + son role de Preparateur
+GRANT CONNECT, rle_Preparateur
+     TO PreparateurA;
+
+    ---------------------------------------------------
+-- @todo
     -- role pour les Pharmacien
 CREATE ROLE rle_Pharmacien;
 GRANT
@@ -90,7 +150,7 @@ GRANT
     ---------------------------------------------------
 
     -- on drop les existants
-DROP USER FournisseurA;
+DROP USER FournisseurA CASCADE;
 DROP PROFILE prf_Fournisseur;
 DROP ROLE rle_Supplier;
 
@@ -133,6 +193,7 @@ CREATE USER FournisseurA
     -- ajout de role de connexion et de son role de supplier
 GRANT CONNECT, rle_Supplier
      TO FournisseurA;
+
     ---------------------------------------------------
 
     ---------------------------------------------------
@@ -140,7 +201,7 @@ GRANT CONNECT, rle_Supplier
     ---------------------------------------------------
 
     -- on drop les existants
-DROP USER ClientA;
+DROP USER ClientA CASCADE;
 DROP PROFILE prf_User;
 DROP ROLE rle_User;
 
