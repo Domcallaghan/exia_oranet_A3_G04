@@ -201,10 +201,11 @@ Create or replace function F_All_Command_Customer_List
 	end;
 	/	
  		---- détail commande ----
-CREATE or replace TYPE Command_detail is object(
+create or replace TYPE Command_detail is object(
     MED_NOM VARCHAR2(38),
     MED_NUM_LOT CHAR(12),
-    MED_FABRIC_NOM VARCHAR2(38),
+    MED_DATE_EXPIRATION DATE,
+    MED_FARIC_NOM VARCHAR2(38),
     MED_REMBOURSABLE NUMBER(1),
     QTE NUMBER(4),
     PRIX_ACTUEL NUMBER(7,2)
@@ -223,11 +224,11 @@ is
 	l_mediament_com Command_detail_list := Command_detail_list();
 	n integer :=0;
 BEGIN
-	for r in (Select unique LC.MED_NOM, LC.MED_NUM_LOT,MED_FABRIC_NOM,MED_REMBOURSABLE,QTE,PRIC_ACTUEL
+	for r in (Select unique LC.MED_NOM, LC.MED_NUM_LOT,MED_DATE_EXPIRATION,MED_FABRIC_NOM,MED_REMBOURSABLE,QTE,PRIC_ACTUEL
 				from Ligne_COMMANDE LC
-				inner join medicament M
+				inner join pharmaweb.medicament M
   					on LC.MED_NOM = M.MED_NOM and LC.MED_NUM_LOT = M.MED_NUM_LOT
-				inner join CLASSE_PHARMACEUTIQUE CP
+				inner join pharmaweb.CLASSE_PHARMACEUTIQUE CP
   					on CP.CPH_ID = M.CPH_ID
 				where COM_ID = Num_Command 
 			)
@@ -237,16 +238,17 @@ BEGIN
 			l_mediament_com(n) := Command_detail(
 				r.MED_NOM,
 				r.MED_NUM_LOT,
-				r.MED_DATE_EXPIRATION,
+        r.MED_DATE_EXPIRATION,
 				r.MED_FABRIC_NOM,
 				r.MED_REMBOURSABLE,
 				r.QTE,
-				r.PRIX_ACTUEL
+				r.PRIC_ACTUEL
 				);
 				end loop;
 		return l_mediament_com; 
 	end;
 	/
+
 
 
 
@@ -285,7 +287,7 @@ CREATE OR REPLACE FUNCTION F_drug_details
 		SELECT MED_NOM, MED_NUM_LOT, med_date_expiration, med_notice, med_remboursable, med_prix_base, med_fabric_nom, 
 		cph_nom 
 		INTO MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM 
-		FROM MEDICAMENT M, CLASSE_PHARMACEUTIQUE CP 
+		FROM pharmaweb.MEDICAMENT M, pharmaweb.CLASSE_PHARMACEUTIQUE CP 
 		WHERE M.cph_id = CP.cph_id AND MED_NOM = nom AND MED_NUM_LOT = numlot;
     l_detail(n) := Drug_detail(MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM);
 	RETURN l_detail; 
@@ -307,8 +309,8 @@ as
   n integer :=0;
 	BEGIN
      for r in (select CPH_NOM into req
-       from INCOMPATIBILITE I 
-       inner join CLASSE_PHARMACEUTIQUE CP 
+       from pharmaweb.INCOMPATIBILITE I 
+       inner join pharmaweb.CLASSE_PHARMACEUTIQUE CP 
        on I.CPH_ID = CP.CPH_ID 
        where CPH_ID_1 = ID_CPH)
      		loop
@@ -322,39 +324,3 @@ as
 
  -- supprimer commande 
 
-
-
-
-
-
-
-
-
-CREATE OR REPLACE FUNCTION F_drug_details
-	(
-	 numlot char,
-	 nom VARCHAR2
-	)
-	return list_drug_detail
-	IS
-    	MED_NOM VARCHAR2(38);
-   	 	MED_NUM_LOT CHAR(12);
-    	MED_DATE_EXPIRATION DATE; 
-    	MED_NOTICE VARCHAR2(255);
-    	MED_REMBOURSABLE NUMBER(1);
-    	MED_PRIX_BASE NUMBER(7,2);
-    	MED_FABRIC_NOM VARCHAR2(38);
-    	CPH_NOM VARCHAR2(38);
-      l_detail list_drug_detail := list_drug_detail();
-      n integer:=1;
-	BEGIN
-		l_detail.extend;
-		SELECT MED_NOM, MED_NUM_LOT, med_date_expiration, med_notice, med_remboursable, med_prix_base, med_fabric_nom, 
-		cph_nom 
-		INTO MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM 
-		FROM MEDICAMENT M, CLASSE_PHARMACEUTIQUE CP 
-		WHERE M.cph_id = CP.cph_id AND MED_NOM = nom AND MED_NUM_LOT = numlot;
-    l_detail(n) := Drug_detail(MED_NOM,MED_NUM_LOT,MED_DATE_EXPIRATION,MED_NOTICE,MED_REMBOURSABLE,MED_PRIX_BASE,MED_FABRIC_NOM,CPH_NOM);
-	RETURN l_detail; 
-END;
-/
